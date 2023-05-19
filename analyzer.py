@@ -26,3 +26,4 @@ def analyzeNetIncome(ticker_list):
 
     # Saves the analysis to the net_income_analyses folder
     wb.save(r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses\net_income_analysis.xlsx')
+

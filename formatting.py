@@ -1,7 +1,31 @@
 import pandas as pd
+from openpyxl import Workbook
+from openpyxl import load_workbook
+from extractor import stockInput
+import pathlib
 
+ticker_list = stockInput()
+def renameCSV(ticker_list):
+    csv_path = pathlib.Path(r'C:\Users\cummi\Desktop\webscrap\bin\csv')
+    generator = csv_path.iterdir()
+    dir_list = list(generator)
+    print(dir_list)
 
+    for item in dir_list:
+        for ticker in ticker_list:
+            path = str(item)  # Convert Path object to a string
+            new_path = path[:40] + ticker + '.csv'
 
+            if item.is_file():  # Check if the item is a file
+                new_file_path = csv_path / new_path
+                if not new_file_path.exists():  # Check if the new path already exists
+                    item.rename(new_file_path)
+                    print(f"Renamed {item} to {new_path}")
+                else:
+                    print(f"Skipping {item}. Destination file {new_path} already exists.")
+            else:
+                print(f"Skipping {item} as it is not a file")
+renameCSV(ticker_list)
 
 def format_list(financials_list):
     numbers_list = []
@@ -55,24 +79,3 @@ def extract_net_income(data):
             index = sublist.index('Net Income')
             extracted_data.append(sublist[index:index+5])
     return extracted_data
-
-
-''' 
-output1 = format_list(string)
-output2 = move_hyphen(output1)
-for sublist in output2:
-    index = None  # Initialize the index variable
-    if '-' in sublist:
-        index = sublist.index('-')
-    if index is not None and index + 1 < len(sublist):
-        sublist[index] = '-' + sublist[index + 1]
-        del sublist[index + 1]
-print(output2)
-'''
-# numbers_list = format_list(financials_list)
-# output = move_hyphen(numbers_list)
-
-
-# nested_list = output
-
-# final_list = nested_list

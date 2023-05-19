@@ -8,7 +8,7 @@ import urllib3
 from bs4 import BeautifulSoup
 import pandas as pd
 from extractor import stockInput, extractFinancials, extractHistorical
-from formatting import format_list, move_hyphen, split_list, extract_net_income
+from formatting import format_list, move_hyphen, split_list, extract_net_income, renameCSV
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -76,3 +76,5 @@ for ticker in ticker_list:
     extractHistorical(ticker)
 
 analyzeNetIncome(ticker_list)
+
+renameCSV(ticker_list)
