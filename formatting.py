@@ -4,7 +4,7 @@ from openpyxl import load_workbook
 from extractor import stockInput
 import pathlib
 
-ticker_list = stockInput()
+
 def renameCSV(ticker_list):
     csv_path = pathlib.Path(r'C:\Users\cummi\Desktop\webscrap\bin\csv')
     generator = csv_path.iterdir()
@@ -25,7 +25,7 @@ def renameCSV(ticker_list):
                     print(f"Skipping {item}. Destination file {new_path} already exists.")
             else:
                 print(f"Skipping {item} as it is not a file")
-renameCSV(ticker_list)
+
 
 def format_list(financials_list):
     numbers_list = []
