@@ -2,9 +2,6 @@ from openpyxl import Workbook
 from openpyxl import load_workbook
 from extractor import stockInput
 
-ticker_list = stockInput()
-
-
 def analyzeNetIncome(ticker_list):
     # Loads the net income workbook
     wb = load_workbook(filename = r'C:\Users\cummi\Desktop\webscrap\bin\net_income.xlsx')
