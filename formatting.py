@@ -5,6 +5,7 @@ from openpyxl import load_workbook
 from extractor import stockInput
 import pathlib
 import csv
+import os
 
 
 
@@ -99,3 +100,4 @@ def extract_net_income(data):
             index = sublist.index('Net Income')
             extracted_data.append(sublist[index:index+5])
     return extracted_data
+
