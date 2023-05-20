@@ -23,6 +23,7 @@ def clearFiles():
     historical_price_analyses_dir = r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses'
     net_income_analyses_dir = r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses'
     xlsx_dir = r'C:\Users\cummi\Desktop\webscrap\bin\xlsx'
+    comparative_analyses_dir = r'C:\Users\cummi\Desktop\webscrap\bin\comparative_analyses'
 
     os.remove(r'C:\Users\cummi\Desktop\webscrap\bin\net_income.xlsx')
 
@@ -38,6 +39,8 @@ def clearFiles():
     for f in os.listdir(xlsx_dir):
         os.remove(os.path.join(xlsx_dir, f))
 
+    for f in os.listdir(comparative_analyses_dir):
+        os.remove(os.path.join(comparative_analyses_dir, f))
 
 clear_input = input("Would you like to clear files in the bin (Y for yes, N for no): ")
 if str(clear_input) == 'Y':
