@@ -12,7 +12,7 @@ import shutil
 import zipfile
 from openpyxl import load_workbook, Workbook
 
-ticker_list = ['goog', 'pltr']
+
 
 def analyzeHistoricalPrices(ticker_list):
     xlsx_path = 'C:\\Users\\cummi\\Desktop\\webscrap\\bin\\xlsx\\'
@@ -41,7 +41,7 @@ def analyzeHistoricalPrices(ticker_list):
 
         # Save the modified workbook to the output directory
         wb.save(output_directory + ticker + '.xlsx')
-analyzeHistoricalPrices(ticker_list)
+
 
 
 def nothing(ticker_list):

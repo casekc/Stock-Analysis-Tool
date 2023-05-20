@@ -80,3 +80,5 @@ analyzeNetIncome(ticker_list)
 renameCSV(ticker_list)
 
 convertCSV()
+
+analyzeHistoricalPrices(ticker_list)
