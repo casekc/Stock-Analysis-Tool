@@ -79,4 +79,4 @@ analyzeNetIncome(ticker_list)
 
 renameCSV(ticker_list)
 
-convertCSV(ticker_list)
+convertCSV()
