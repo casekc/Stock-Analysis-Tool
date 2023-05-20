@@ -9,17 +9,20 @@ import os
 
 
 
-def convertCSV(ticker_list):
-    csv_path = 'C:\\Users\\cummi\\Desktop\\webscrap\\bin\\csv\\'
-    xlsx_path = 'C:\\Users\\cummi\\Desktop\\webscrap\\bin\\xlsx\\'
-    for ticker in ticker_list:
-        wb = openpyxl.Workbook()
-        ws = wb.active
-        with open(csv_path + ticker + '.csv') as f:
-            reader = csv.reader(f, delimiter=',')
-            for row in reader:
-                ws.append(row)
-        wb.save(xlsx_path + ticker + '.xlsx')
+def convertCSV():
+    directory = 'C:\\Users\\cummi\\Desktop\\webscrap\\bin\\csv\\'
+    export_directory = 'C:\\Users\\cummi\\Desktop\\webscrap\\bin\\xlsx\\'
+    for filename in os.listdir(directory):
+        if filename.endswith('.csv'):
+            file_path = os.path.join(directory, filename)
+
+            # Read CSV file into a DataFrame
+            df = pd.read_csv(file_path)
+
+            # Export DataFrame to Excel
+            export_filename = os.path.splitext(filename)[0] + '.xlsx'
+            export_path = os.path.join(export_directory, export_filename)
+            df.to_excel(export_path, index=False)
 
 
 
