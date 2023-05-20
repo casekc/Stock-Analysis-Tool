@@ -20,9 +20,7 @@ def fix_excel_files(directory):
                 print(f"Error fixing file: {filename}\n{str(e)}")
 
 
-# Replace 'directory_path' with the actual path to your directory containing Excel files
-directory_path = r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses'
-fix_excel_files(directory_path)
+
 
 
 def convertCSV():
