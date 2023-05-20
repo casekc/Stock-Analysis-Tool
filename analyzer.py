@@ -33,8 +33,8 @@ def analyzeHistoricalPrices(ticker_list):
 
         for i in range(2, length + 1):
             i = str(i)
-            ws['G' + i] = '=B' + i + '-D' + i  # B2-D2
-            ws['H' + i] = '=E' + i + '-F' + i  # E2-F2
+            ws['G' + i] = '=((B' + i + '-D' + i + ')/(D'+i + '))*100' # B2-D2
+            ws['H' + i] = '=((E' + i + '-F' + i + ')/(F'+i + '))*100' # E2-F2
 
         ws['I2'] = '=AVERAGE(G2:G' + str(length) + ')'
         ws['J2'] = '=AVERAGE(H2:H' + str(length) + ')'

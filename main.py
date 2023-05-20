@@ -14,8 +14,33 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
-from analyzer import analyzeNetIncome
+from analyzer import analyzeNetIncome, analyzeHistoricalPrices
 
+
+def clearFiles():
+    csv_dir = r'C:\Users\cummi\Desktop\webscrap\bin\csv'
+    historical_price_analyses_dir = r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses'
+    net_income_analyses_dir = r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses'
+    xlsx_dir = r'C:\Users\cummi\Desktop\webscrap\bin\xlsx'
+
+    os.remove(r'C:\Users\cummi\Desktop\webscrap\bin\net_income.xlsx')
+
+    for f in os.listdir(csv_dir):
+        os.remove(os.path.join(csv_dir, f))
+
+    for f in os.listdir(historical_price_analyses_dir):
+        os.remove(os.path.join(historical_price_analyses_dir, f))
+
+    for f in os.listdir(net_income_analyses_dir):
+        os.remove(os.path.join(net_income_analyses_dir, f))
+
+    for f in os.listdir(xlsx_dir):
+        os.remove(os.path.join(xlsx_dir, f))
+
+
+clear_input = input("Would you like to clear files in the bin (Y for yes, N for no): ")
+if str(clear_input) == 'Y':
+    clearFiles()
 ticker_list = stockInput()
 print(ticker_list)
 
