@@ -27,3 +27,20 @@ def analyzeNetIncome(ticker_list):
     # Saves the analysis to the net_income_analyses folder
     wb.save(r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses\net_income_analysis.xlsx')
 
+
+def analyzeHistoricalPrices(ticker_list):
+
+    for ticker in ticker_list:
+        wb = load_workbook(r'C:\Users\cummi\Desktop\webscrap\bin\csv\' + ' + ticker + '.csv')
+
+        ws = wb.active
+
+        ws['F1'] = 'Pco'
+        ws['G1'] = 'Phl'
+
+        for i in range(2, len(ticker_list) + 2):
+            i = str(i)
+            ws['F' + i] = '=F'
+            ws['G' + i] = '=((C' + i + '- D' + i + ')/D' + i + ')*100'
+            ws['H' + i] = '=((B' + i + '- C' + i + ')/C' + i + ')*100'
+            ws['I' + i] = '=AVERAGE(F' + i + ':H' + i + ')'

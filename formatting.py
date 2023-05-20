@@ -1,8 +1,26 @@
 import pandas as pd
+import openpyxl
 from openpyxl import Workbook
 from openpyxl import load_workbook
 from extractor import stockInput
 import pathlib
+import csv
+
+
+
+def convertCSV(ticker_list):
+    csv_path = 'C:\\Users\\cummi\\Desktop\\webscrap\\bin\\csv\\'
+    xlsx_path = 'C:\\Users\\cummi\\Desktop\\webscrap\\bin\\xlsx\\'
+    for ticker in ticker_list:
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        with open(csv_path + ticker + '.csv') as f:
+            reader = csv.reader(f, delimiter=',')
+            for row in reader:
+                ws.append(row)
+        wb.save(xlsx_path + ticker + '.xlsx')
+
+
 
 
 def renameCSV(ticker_list):
@@ -25,6 +43,8 @@ def renameCSV(ticker_list):
                     print(f"Skipping {item}. Destination file {new_path} already exists.")
             else:
                 print(f"Skipping {item} as it is not a file")
+
+
 
 
 def format_list(financials_list):

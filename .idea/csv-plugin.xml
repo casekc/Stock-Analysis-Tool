@@ -3,14 +3,14 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="\bin\csv\HistoricalData_1684532490173.csv">
+        <entry key="\bin\csv\goog.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\bin\csv\HistoricalData_1684532512618.csv">
+        <entry key="\bin\csv\pltr.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
