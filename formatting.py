@@ -8,6 +8,22 @@ import csv
 import os
 
 
+def fix_excel_files(directory):
+    for filename in os.listdir(directory):
+        if filename.endswith(".xlsx"):
+            filepath = os.path.join(directory, filename)
+            try:
+                wb = load_workbook(filepath)
+                wb.save(filepath)
+                print(f"Fixed file: {filename}")
+            except Exception as e:
+                print(f"Error fixing file: {filename}\n{str(e)}")
+
+
+# Replace 'directory_path' with the actual path to your directory containing Excel files
+directory_path = r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses'
+fix_excel_files(directory_path)
+
 
 def convertCSV():
     directory = 'C:\\Users\\cummi\\Desktop\\webscrap\\bin\\csv\\'
@@ -23,8 +39,6 @@ def convertCSV():
             export_filename = os.path.splitext(filename)[0] + '.xlsx'
             export_path = os.path.join(export_directory, export_filename)
             df.to_excel(export_path, index=False)
-
-
 
 
 def renameCSV(ticker_list):
@@ -49,15 +63,12 @@ def renameCSV(ticker_list):
                 print(f"Skipping {item} as it is not a file")
 
 
-
-
 def format_list(financials_list):
     numbers_list = []
     for i in financials_list:
         numbers = i[10:].split('$')[1:]
         numbers_list.append(numbers)
     return numbers_list
-
 
 
 def move_hyphen(nested_list):
@@ -78,6 +89,7 @@ def move_hyphen(nested_list):
         result.append(new_sublist)
     return result
 
+
 def split_list(data):
     sublists = []
     sublist = []
@@ -96,11 +108,11 @@ def split_list(data):
 
     return sublists
 
+
 def extract_net_income(data):
     extracted_data = []
     for sublist in data:
         if 'Net Income' in sublist:
             index = sublist.index('Net Income')
-            extracted_data.append(sublist[index:index+5])
+            extracted_data.append(sublist[index:index + 5])
     return extracted_data
-

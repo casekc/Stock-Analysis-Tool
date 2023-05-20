@@ -15,6 +15,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from analyzer import analyzeNetIncome, analyzeHistoricalPrices
+from compare import comparativeAnalysis
 
 
 def clearFiles():
@@ -107,3 +108,5 @@ renameCSV(ticker_list)
 convertCSV()
 
 analyzeHistoricalPrices(ticker_list)
+
+comparativeAnalysis()
