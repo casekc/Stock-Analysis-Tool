@@ -17,6 +17,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from analyzer import analyzeNetIncome, analyzeHistoricalPrices
 from compare import comparativeAnalysis
 import subprocess
+from tickers import technology_tickers
 
 
 historical_price_analyses_dir = r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses'
@@ -54,11 +55,17 @@ def clearFiles():
     for f in os.listdir(nia_converted_files_dir):
         os.remove(os.path.join(nia_converted_files_dir, f))
 
-clear_input = input("Would you like to clear files in the bin (Y for yes, N for no): ")
-if str(clear_input) == 'Y':
+clear_input = input("Would you like to clear files in the bin (y for yes, n for no): ")
+if str(clear_input) == 'y':
     clearFiles()
-ticker_list = stockInput()
-print(ticker_list)
+
+
+sector_input = input("Would you like the technology sector small caps instead? (y for yes, n for no): ")
+if str(sector_input) == 'y':
+    ticker_list = technology_tickers
+else:
+    ticker_list = stockInput()
+    print(ticker_list)
 
 financials_list = []
 
