@@ -8,7 +8,7 @@ import urllib3
 from bs4 import BeautifulSoup
 import pandas as pd
 from extractor import stockInput, extractFinancials, extractHistorical
-from formatting import format_list, move_hyphen, split_list, extract_net_income, renameCSV, convertCSV
+from formatting import format_list, move_hyphen, split_list, extract_net_income, renameCSV, convertCSV, fix_excel_files
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -16,7 +16,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from analyzer import analyzeNetIncome, analyzeHistoricalPrices
 from compare import comparativeAnalysis
+import subprocess
 
+
+historical_price_analyses_dir = r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses'
+net_income_analyses_dir = r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses'
 
 def clearFiles():
     csv_dir = r'C:\Users\cummi\Desktop\webscrap\bin\csv'
@@ -24,6 +28,8 @@ def clearFiles():
     net_income_analyses_dir = r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses'
     xlsx_dir = r'C:\Users\cummi\Desktop\webscrap\bin\xlsx'
     comparative_analyses_dir = r'C:\Users\cummi\Desktop\webscrap\bin\comparative_analyses'
+    hpa_converted_files_dir = r'C:\Users\cummi\Desktop\webscrap\bin\converted_files\historical_price_analyses'
+    nia_converted_files_dir = r'C:\Users\cummi\Desktop\webscrap\bin\converted_files\net_income_analyses'
 
     os.remove(r'C:\Users\cummi\Desktop\webscrap\bin\net_income.xlsx')
 
@@ -42,6 +48,12 @@ def clearFiles():
     for f in os.listdir(comparative_analyses_dir):
         os.remove(os.path.join(comparative_analyses_dir, f))
 
+    for f in os.listdir(hpa_converted_files_dir):
+        os.remove(os.path.join(hpa_converted_files_dir, f))
+
+    for f in os.listdir(nia_converted_files_dir):
+        os.remove(os.path.join(nia_converted_files_dir, f))
+
 clear_input = input("Would you like to clear files in the bin (Y for yes, N for no): ")
 if str(clear_input) == 'Y':
     clearFiles()
@@ -51,6 +63,7 @@ print(ticker_list)
 financials_list = []
 
 for ticker in ticker_list:
+    time.sleep(5)
     f = extractFinancials(ticker)
     financials_list.append(f)
 
@@ -102,6 +115,7 @@ def setup_chrome_driver():
 driver = setup_chrome_driver()
 
 for ticker in ticker_list:
+    time.sleep(5)
     extractHistorical(ticker)
 
 analyzeNetIncome(ticker_list)
@@ -110,6 +124,21 @@ renameCSV(ticker_list)
 
 convertCSV()
 
+
 analyzeHistoricalPrices(ticker_list)
+
+hpa_directory = r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses'
+nia_directory = r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses'
+
+
+script_path = r"C:\Users\cummi\Desktop\webscrap\bin\bash\convert_files.sh"
+
+try:
+    subprocess.call(["bash", script_path])
+    print("Script executed successfully.")
+except subprocess.CalledProcessError as e:
+    print(f"Error executing script: {e}")
+
+time.sleep(5)
 
 comparativeAnalysis()

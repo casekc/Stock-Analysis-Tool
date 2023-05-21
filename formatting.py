@@ -2,23 +2,77 @@ import pandas as pd
 import openpyxl
 from openpyxl import Workbook
 from openpyxl import load_workbook
+from openpyxl.xml.constants import SHARED_STRINGS
 from extractor import stockInput
 import pathlib
 import csv
 import os
 
+hpa_directory = r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses'
+nia_directory = r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses'
 
-def fix_excel_files(directory):
-    for filename in os.listdir(directory):
+def fix_excel_files(hpa_directory, nia_directory):
+    for filename in os.listdir(hpa_directory):
         if filename.endswith(".xlsx"):
-            filepath = os.path.join(directory, filename)
+            filepath = os.path.join(hpa_directory, filename)
+            try:
+                # Load the workbook in write-only mode to preserve the original file
+                wb = load_workbook(filepath, read_only=True)
+                # Create a new workbook in write mode to copy the sheets
+                fixed_wb = load_workbook(filepath)
+                for sheet_name in wb.sheetnames:
+                    sheet = wb[sheet_name]
+                    fixed_sheet = fixed_wb[sheet_name]
+                    fixed_sheet.delete_rows(1, fixed_sheet.max_row)
+                    for row in sheet.iter_rows(values_only=True):
+                        fixed_sheet.append(row)
+                # Save the fixed workbook, which will recreate the sharedStrings.xml
+                fixed_wb.save(filepath)
+                print(f"Fixed file: {filename}")
+            except Exception as e:
+                print(f"Error fixing file: {filename}\n{str(e)}")
+    for filename in os.listdir(nia_directory):
+        if filename.endswith(".xlsx"):
+            filepath = os.path.join(nia_directory, filename)
+            try:
+                # Load the workbook in write-only mode to preserve the original file
+                wb = load_workbook(filepath, read_only=True)
+                # Create a new workbook in write mode to copy the sheets
+                fixed_wb = load_workbook(filepath)
+                for sheet_name in wb.sheetnames:
+                    sheet = wb[sheet_name]
+                    fixed_sheet = fixed_wb[sheet_name]
+                    fixed_sheet.delete_rows(1, fixed_sheet.max_row)
+                    for row in sheet.iter_rows(values_only=True):
+                        fixed_sheet.append(row)
+                # Save the fixed workbook, which will recreate the sharedStrings.xml
+                fixed_wb.save(filepath)
+                print(f"Fixed file: {filename}")
+            except Exception as e:
+                print(f"Error fixing file: {filename}\n{str(e)}")
+
+
+
+
+def old_fix_excel_files():
+    for filename in os.listdir(r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses'):
+        if filename.endswith(".xlsx"):
+            filepath = os.path.join(r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses', filename)
             try:
                 wb = load_workbook(filepath)
                 wb.save(filepath)
                 print(f"Fixed file: {filename}")
             except Exception as e:
                 print(f"Error fixing file: {filename}\n{str(e)}")
-
+    for filename in os.listdir(r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses'):
+        if filename.endswith(".xlsx"):
+            filepath = os.path.join(r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses', filename)
+            try:
+                wb = load_workbook(filepath)
+                wb.save(filepath)
+                print(f"Fixed file: {filename}")
+            except Exception as e:
+                print(f"Error fixing file: {filename}\n{str(e)}")
 
 
 
