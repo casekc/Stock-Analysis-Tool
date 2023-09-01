@@ -85,7 +85,6 @@ tickers = ticker_list
 df = pd.DataFrame(data, index=tickers, columns=['2022', '2021', '2020', '2019'])
 df.index.name = 'ticker'
 
-# Get the project directory
 project_dir = r'C:\Users\cummi\Desktop\webscrap'
 
 export_dir = os.path.join(project_dir, 'bin')
@@ -98,27 +97,20 @@ df.to_excel(export_path)
 
 
 def setup_chrome_driver():
-    # Specify the full path to chromedriver.exe
-    driver_path = r'C:\path\to\chromedriver.exe'  # Replace with the actual path to chromedriver.exe
+    driver_path = r'C:\path\to\chromedriver.exe'
 
-    # Set up the Chrome options
     options = webdriver.ChromeOptions()
 
-    # Specify the default download directory
     prefs = {"download.default_directory": "C:\\Users\\cummi\\Desktop\\webscrap\\bin\\csv"}
     options.add_experimental_option("prefs", prefs)
 
-    # Set up the Service object with the executable path
     service = Service(executable_path=driver_path)
 
-    # Set up the Chrome driver with the Service and options
     driver = webdriver.Chrome(service=service, options=options)
 
-    # Return the driver object
     return driver
 
 
-# Call the function to set up the Chrome driver
 driver = setup_chrome_driver()
 
 for ticker in ticker_list:
