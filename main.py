@@ -1,4 +1,3 @@
-# imports
 import os
 import urllib.request
 from selenium import webdriver
