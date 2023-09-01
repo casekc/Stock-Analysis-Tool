@@ -16,9 +16,7 @@ def fix_excel_files(hpa_directory, nia_directory):
         if filename.endswith(".xlsx"):
             filepath = os.path.join(hpa_directory, filename)
             try:
-                # Load the workbook in write-only mode to preserve the original file
                 wb = load_workbook(filepath, read_only=True)
-                # Create a new workbook in write mode to copy the sheets
                 fixed_wb = load_workbook(filepath)
                 for sheet_name in wb.sheetnames:
                     sheet = wb[sheet_name]
@@ -26,7 +24,6 @@ def fix_excel_files(hpa_directory, nia_directory):
                     fixed_sheet.delete_rows(1, fixed_sheet.max_row)
                     for row in sheet.iter_rows(values_only=True):
                         fixed_sheet.append(row)
-                # Save the fixed workbook, which will recreate the sharedStrings.xml
                 fixed_wb.save(filepath)
                 print(f"Fixed file: {filename}")
             except Exception as e:
@@ -35,9 +32,7 @@ def fix_excel_files(hpa_directory, nia_directory):
         if filename.endswith(".xlsx"):
             filepath = os.path.join(nia_directory, filename)
             try:
-                # Load the workbook in write-only mode to preserve the original file
                 wb = load_workbook(filepath, read_only=True)
-                # Create a new workbook in write mode to copy the sheets
                 fixed_wb = load_workbook(filepath)
                 for sheet_name in wb.sheetnames:
                     sheet = wb[sheet_name]
@@ -45,34 +40,12 @@ def fix_excel_files(hpa_directory, nia_directory):
                     fixed_sheet.delete_rows(1, fixed_sheet.max_row)
                     for row in sheet.iter_rows(values_only=True):
                         fixed_sheet.append(row)
-                # Save the fixed workbook, which will recreate the sharedStrings.xml
                 fixed_wb.save(filepath)
                 print(f"Fixed file: {filename}")
             except Exception as e:
                 print(f"Error fixing file: {filename}\n{str(e)}")
 
 
-
-
-def old_fix_excel_files():
-    for filename in os.listdir(r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses'):
-        if filename.endswith(".xlsx"):
-            filepath = os.path.join(r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses', filename)
-            try:
-                wb = load_workbook(filepath)
-                wb.save(filepath)
-                print(f"Fixed file: {filename}")
-            except Exception as e:
-                print(f"Error fixing file: {filename}\n{str(e)}")
-    for filename in os.listdir(r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses'):
-        if filename.endswith(".xlsx"):
-            filepath = os.path.join(r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses', filename)
-            try:
-                wb = load_workbook(filepath)
-                wb.save(filepath)
-                print(f"Fixed file: {filename}")
-            except Exception as e:
-                print(f"Error fixing file: {filename}\n{str(e)}")
 
 
 
@@ -84,10 +57,8 @@ def convertCSV():
         if filename.endswith('.csv'):
             file_path = os.path.join(directory, filename)
 
-            # Read CSV file into a DataFrame
             df = pd.read_csv(file_path)
 
-            # Export DataFrame to Excel
             export_filename = os.path.splitext(filename)[0] + '.xlsx'
             export_path = os.path.join(export_directory, export_filename)
             df.to_excel(export_path, index=False)
@@ -101,12 +72,12 @@ def renameCSV(ticker_list):
 
     for item in dir_list:
         for ticker in ticker_list:
-            path = str(item)  # Convert Path object to a string
+            path = str(item)  
             new_path = path[:40] + ticker + '.csv'
 
-            if item.is_file():  # Check if the item is a file
+            if item.is_file():
                 new_file_path = csv_path / new_path
-                if not new_file_path.exists():  # Check if the new path already exists
+                if not new_file_path.exists(): 
                     item.rename(new_file_path)
                     print(f"Renamed {item} to {new_path}")
                 else:
@@ -129,13 +100,13 @@ def move_hyphen(nested_list):
         new_sublist = []
         for element in sublist:
             if element.endswith("-"):
-                element = element[:-1]  # Remove the hyphen
+                element = element[:-1] 
                 if new_sublist and new_sublist[-1].endswith("-"):
-                    new_sublist[-1] += element  # Append the element to the last element in the new sublist
+                    new_sublist[-1] += element
                 else:
                     new_sublist.append(
-                        element)  # Append the element as is if the new sublist is empty or the last element doesn't end with a hyphen
-                new_sublist.append("-")  # Append the hyphen as a separate element
+                        element)
+                new_sublist.append("-")
             else:
                 new_sublist.append(element)
         result.append(new_sublist)
@@ -155,7 +126,6 @@ def split_list(data):
                 sublist = []
         sublist.append(item)
 
-    # Append the last sublist
     sublists.append(sublist)
 
     return sublists
