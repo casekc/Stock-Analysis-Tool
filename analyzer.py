@@ -36,9 +36,6 @@ import xlrd
 from extractor import stockInput
 
 def analyzeNetIncome(ticker_list):
-    input_filepath = r'C:\Users\cummi\Desktop\webscrap\bin\net_income.xlsx'
-    output_filepath = r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses\net_income_analysis.xlsx'
-
     temp_dir = tempfile.mkdtemp()
 
     try:
@@ -100,9 +97,6 @@ def generate_shared_strings_xml(shared_strings):
 
 
 def analyzeHistoricalPrices(ticker_list):
-    xlsx_path = 'C:\\Users\\cummi\\Desktop\\webscrap\\bin\\xlsx\\'
-    output_directory = 'C:\\Users\\cummi\\Desktop\\webscrap\\bin\\historical_price_analyses\\'
-
     for ticker in ticker_list:
         wb = load_workbook(xlsx_path + ticker + '.xlsx')
         ws = wb.active
