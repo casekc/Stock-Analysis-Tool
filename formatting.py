@@ -8,9 +8,6 @@ import pathlib
 import csv
 import os
 
-hpa_directory = r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses'
-nia_directory = r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses'
-
 def fix_excel_files(hpa_directory, nia_directory):
     for filename in os.listdir(hpa_directory):
         if filename.endswith(".xlsx"):
@@ -51,8 +48,6 @@ def fix_excel_files(hpa_directory, nia_directory):
 
 
 def convertCSV():
-    directory = 'C:\\Users\\cummi\\Desktop\\webscrap\\bin\\csv\\'
-    export_directory = 'C:\\Users\\cummi\\Desktop\\webscrap\\bin\\xlsx\\'
     for filename in os.listdir(directory):
         if filename.endswith('.csv'):
             file_path = os.path.join(directory, filename)
@@ -65,7 +60,7 @@ def convertCSV():
 
 
 def renameCSV(ticker_list):
-    csv_path = pathlib.Path(r'C:\Users\cummi\Desktop\webscrap\bin\csv')
+    csv_path = pathlib.Path()
     generator = csv_path.iterdir()
     dir_list = list(generator)
     print(dir_list)
