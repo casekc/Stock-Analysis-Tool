@@ -18,20 +18,8 @@ from compare import comparativeAnalysis
 import subprocess
 from tickers import technology_tickers
 
-
-historical_price_analyses_dir = r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses'
-net_income_analyses_dir = r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses'
-
 def clearFiles():
-    csv_dir = r'C:\Users\cummi\Desktop\webscrap\bin\csv'
-    historical_price_analyses_dir = r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses'
-    net_income_analyses_dir = r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses'
-    xlsx_dir = r'C:\Users\cummi\Desktop\webscrap\bin\xlsx'
-    comparative_analyses_dir = r'C:\Users\cummi\Desktop\webscrap\bin\comparative_analyses'
-    hpa_converted_files_dir = r'C:\Users\cummi\Desktop\webscrap\bin\converted_files\historical_price_analyses'
-    nia_converted_files_dir = r'C:\Users\cummi\Desktop\webscrap\bin\converted_files\net_income_analyses'
-
-    os.remove(r'C:\Users\cummi\Desktop\webscrap\bin\net_income.xlsx')
+    #os.remove()
 
     for f in os.listdir(csv_dir):
         os.remove(os.path.join(csv_dir, f))
@@ -84,8 +72,6 @@ tickers = ticker_list
 df = pd.DataFrame(data, index=tickers, columns=['2022', '2021', '2020', '2019'])
 df.index.name = 'ticker'
 
-project_dir = r'C:\Users\cummi\Desktop\webscrap'
-
 export_dir = os.path.join(project_dir, 'bin')
 
 os.makedirs(export_dir, exist_ok=True)
@@ -96,11 +82,9 @@ df.to_excel(export_path)
 
 
 def setup_chrome_driver():
-    driver_path = r'C:\path\to\chromedriver.exe'
-
     options = webdriver.ChromeOptions()
 
-    prefs = {"download.default_directory": "C:\\Users\\cummi\\Desktop\\webscrap\\bin\\csv"}
+    prefs = {"download.default_directory":}
     options.add_experimental_option("prefs", prefs)
 
     service = Service(executable_path=driver_path)
@@ -124,12 +108,6 @@ convertCSV()
 
 
 analyzeHistoricalPrices(ticker_list)
-
-hpa_directory = r'C:\Users\cummi\Desktop\webscrap\bin\historical_price_analyses'
-nia_directory = r'C:\Users\cummi\Desktop\webscrap\bin\net_income_analyses'
-
-
-script_path = r"C:\Users\cummi\Desktop\webscrap\bin\bash\convert_files.sh"
 
 try:
     subprocess.call(["bash", script_path])
